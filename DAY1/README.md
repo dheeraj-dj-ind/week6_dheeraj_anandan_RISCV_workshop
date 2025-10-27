@@ -33,6 +33,35 @@ The program running on the OS will have a compiler for that specific language th
 
 ![Example](images/isa%20example.png)
 
+# Open source tools
+To achieve opensource ASIC design implementation we need the following:
+- RTL Designs
+- EDA Tools
+- PDK Data
+
+The collaboration between designers and fabs led to PDKs. The PDKs include:
+- Device Models
+- Design Rules - DRC, LVS, PEX
+- I/O Libs
+- Standard Cell Libraries 
+
+
+Opensource RTL Designs are widely available in repositories like:
+- librecores.org
+- opensource.org
+- github.org
+
+Opensource EDA tools such as:
+- Qflow
+- OpenRoad
+- OpenLane
+
+PDK Data: Google + Skywater = 130nm Production PDK
+
+![Opensource tools](images/opensource.png)
+
+130nm chips are cheaper for production. Intel fabricated the Intel P4EE processor that runs at 3.46 Ghz. Another example is the processor developed by OSU team that reported 327Mhz post layout clock frequency for a single cycle RV32i CPU. With pipeline, it can achieve more than 1GHz clock. 
+
 # Implementation 
 The task given is to run a design on OpenLane and perform sythesis and calculate flop-ratio and flop-ratio percentage. 
 - Flop-Ratio = Number of Flip-Flops/Total Number of Cells.
@@ -54,6 +83,8 @@ To run the synthesis process after creation of merged file use:
 ```bash
 run_synthesis
 ```
+
+![run_synth](images/synth_run.png)
 
 Upon successful synthesis you will get a success message as shown
 ![Synth Success](images/synthesis%20success.png)

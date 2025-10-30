@@ -70,6 +70,10 @@ set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc
 
 set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
 ```
+
+- Updated TCL File
+![tcl file](images/config_tcl_file.png)
+
 # Running the OpenLane flow
 ```bash 
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -232,7 +236,7 @@ Change in slack observed is
 ```bash 
 report_net -connections _11643_
 help replace_cell
-replace_cell _14481_ sky130_fd_sc_hd__or3_4
+replace_cell _14481_ sky130_fd_sc_hd__or4_4
 report_checks -fields {net cap slew input_pins} -digits 4
 ```
 ![change in pin](images/slack%20dec3.png)
@@ -244,7 +248,7 @@ Change in slack observed is
 ```bash 
 report_net -connections _11668_
 help replace_cell
-replace_cell _14506_ sky130_fd_sc_hd__or3_4
+replace_cell _14506_ sky130_fd_sc_hd__or4_4
 report_checks -fields {net cap slew input_pins} -digits 4
 ```
 ![change in pin](images/changing%20pin5.png)
@@ -273,7 +277,131 @@ write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/des
 exit
 ```
 
-//## Verifying if netlist has been updated
-In the below image it can be seen that, the cell 
-![Confirm overwriting](images/confirming%20overwriting.png)
+## Verifying if netlist has been updated
+In the below image it can be seen that, the cell `_14506_` has been updated from OR gate with drive strength 2 to OR gate of drive strength 4. 
+![Confirm overwriting](images/confirm_overwrite.png)
+
+Since we have verified that the design has been overwritten, we can continue with the PnR flow on OpenLane. The next step is floor plan. To carry out floorplan, run the following command
+
+```bash
+run_floorplan
+```
+
+Incase you get an unexpected error as shown below
+![floorplan error](images/floorplan%20error.png)
+
+Run these commands instead to avoid the unexpected error
+
+```bash 
+init_floorplan
+place_io
+tap_decap_or
+```
+
+- Screenshot of running `init_floorplan` and `place_io`
+![init floorplan](images/init%20floorplan.png)
+
+- Screenshot of running `tap_decap_or`
+![tap decap or](images/ioplacer.png)
+
+After floorplan, run placement command 
+```bash
+run_placement
+```
+
+- Successfully Ran Placement
+![running placement](images/placment%20success.png)
+
+Now, after placement run CTS 
+
+```bash
+run_cts
+```
+- CTS Success
+![cts success](images/cts%20succcess.png)
+
+# Post CTS OpenRoad Timing Analysis
+
+Once the CTS is completed successfully, we have to perform timing analysis again since there will be clock buffers added into the design. To carry out the timing analysis, we use the OpenRoad environment. Use these commands to carry out the timing analysis
+
+```bash
+openroad
+read_lef /openLANE_flow/designs/picorv32a/runs/29-10_09-04/tmp/merged.lef # Reading .lef file
+read_def /openLANE_flow/designs/picorv32a/runs/29-10_09-04/results/cts/picorv32a.cts.def # Reading .def file
+write_db pico_cts.db # Creates an OpenRoad DB
+read_db pico_cts.db # Reading the DB
+read_verilog /openLANE_flow/designs/picorv32a/runs/29-10_09-04/results/synthesis/picorv32a.synthesis_cts.v # Reading verilog netlist
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a # Linging design
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+set_propagated_clock [all_clocks]
+help report_checks # To use report_checks command
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+exit
+```
+
+![Openroad commands](images/openroad%20commands.png)
+![Openroad commands2](images/openroad%20commands2.png)
+
+- OpenRoad Analysis Hold Time
+![Hold time](images/hold%20slack%20after%20openroad.png)
+
+-OpenRoad Analysis Setup Slack
+![Setup Slack](images/setup%20slack%20after%20openroad.png)
+
+It can be observed that the design after CTS has a positive hold and setup slack ensuring that the timing checks are valid after CTS. 
+
+## Assignment
+In this assignment, we are checking the post CTS timing result in OpenRoad environment by removing a buffer named `sky130_fd_sc_hd__clkbuf_1` from the clock buffer list `CTS_BUFFER_LIST`. To carry out this, follow these commands in the same OpenLane enviromnet as the above analysis.
+
+```bash 
+echo $::env(CTS_CLK_BUFFER_LIST) # Lists the buffers in CTS_CLK_BUFFER_LIST
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0] # Deleting 'sky130_fd_sc_hd__clkbuf_1' from the list
+echo $::env(CTS_CLK_BUFFER_LIST) # Lists the buffers in CTS_CLK_BUFFER_LIST
+echo $::env(CURRENT_DEF) # Checking current value of 'CURRENT_DEF'
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/placement/picorv32a.placement.def # Setting def as placement def else error arises
+run_cts # Run CTS again
+echo $::env(CTS_CLK_BUFFER_LIST) # Lists the buffers in CTS_CLK_BUFFER_LIST
+openroad
+read_lef /openLANE_flow/designs/picorv32a/runs/29-10_09-04/tmp/merged.lef # Reading .lef file
+read_def /openLANE_flow/designs/picorv32a/runs/29-10_09-04/results/cts/picorv32a.def # Reading .def file
+write_db pico_cts1.db # Creates an OpenRoad DB
+read_db pico_cts.db # Reading the DB
+read_verilog /openLANE_flow/designs/picorv32a/runs/29-10_09-04/results/synthesis/picorv32a.synthesis_cts.v # Reading verilog netlist
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a # Linging design
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+set_propagated_clock [all_clocks]
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+report_clock_skew -hold # Report hold skew
+report_clock_skew -setup # Report setup skew
+exit # Exits OpenRoad
+echo $::env(CTS_CLK_BUFFER_LIST) # Lists the buffers in CTS_CLK_BUFFER_LIST
+set ::env(CTS_CLK_BUFFER_LIST) [linsert $::env(CTS_CLK_BUFFER_LIST) 0 sky130_fd_sc_hd__clkbuf_1] # Inserts 'sky130_fd_sc_hd__clkbuf_1' to first index of list
+echo $::env(CTS_CLK_BUFFER_LIST) # Lists the buffers in CTS_CLK_BUFFER_LIST
+```
+
+- Removing the buffers
+![Remove buffers](images/removing%20clock%20buf_1%20and%20running%20cts.png)
+
+- CTS error due to wrong .def file link
+![CTS Error](images/cts%20failed%20because%20wrong%20def%20link.png)
+
+- Fix it by changing the .def file linkning 
+![Fixing cts error](images/running%20cts%20again.png)
+
+- Running OpenRoad again for timing analysis
+![Running openroad again](images/openroad%20run2.png)
+
+- Observed hold slack after removing buffers
+![hold slack without buffers](images/hold%20slack%202.png)
+
+- Observed setup slack after removing buffers
+![setup slack without buffers](images/setup%20slack2.png)
+
+From the above output, it can be observed that the hold and setup slacks have improved after removing the `sky130_fd_sc_hd__clkbuf_1`
+
+- Clock Skews
+![Clock skews](images/final%20result.png)
+
 

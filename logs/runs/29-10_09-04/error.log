@@ -1,0 +1,12 @@
+during executing: "openroad -exit /openLANE_flow/scripts/openroad/or_basic_mp.tcl |& tee >&@stdout /openLANE_flow/designs/picorv32a/runs/29-10_09-04/logs/placement/8-basic_mp.log"
+Last 10 lines:
+child process exited abnormally
+
+during executing: "openroad -exit /openLANE_flow/scripts/openroad/or_cts.tcl |& tee >&@stdout /openLANE_flow/designs/picorv32a/runs/29-10_09-04/logs/cts/20-cts.log"
+Last 10 lines:
+child process exited abnormally
+
+during executing: "openroad -exit /openLANE_flow/scripts/openroad/or_pdn.tcl |& tee >&@stdout /openLANE_flow/designs/picorv32a/runs/29-10_09-04/logs/floorplan/1-pdn.log"
+Last 10 lines:
+child process exited abnormally
+

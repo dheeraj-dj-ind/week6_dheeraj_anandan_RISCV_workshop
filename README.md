@@ -1,5 +1,5 @@
 # Week6 Tasks
-This week we will go through OpenLane that comprises the RTL2GDSII flow for a design `picorv32a`. Each day's task description is mentioned that will help you navigate clearly
+This week we will go through OpenLane that comprises the RTL2GDSII flow for a design `picorv32a`. Each day's task description is mentioned that will help you navigate clearly. The `logs` for each day are also present 
 
 ## Day1 : 
 Get a thorough understanding of the basics of what a package is, it's contents,and a deeper dive into the RTL2GDSII flow using open source tools. You will also understand what do you mean by Instruction Set Algorithm (ISA), how a sofware runs on the hardware and carrying out sysnthesis of picorv32a. We also calculate the flop ratio and flop percentage of the design. 

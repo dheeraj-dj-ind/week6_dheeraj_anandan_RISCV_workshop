@@ -1,0 +1,90 @@
+[INFO]: Current run directory is /openLANE_flow/designs/picorv32a/runs/28-10_03-59
+[INFO]: Preparing LEF Files
+[INFO]: Extracting the number of available metal layers from /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef
+[INFO]: The number of available metal layers is 6
+[INFO]: The available metal layers are li1 met1 met2 met3 met4 met5
+[INFO]: Merging LEF Files...
+[INFO]: Merging the following extra LEFs: /openLANE_flow/designs/picorv32a/src/sky130_vsdinv.lef
+[INFO]: Trimming Liberty...
+[INFO]: Generating Exclude List...
+[INFO]: Storing configs into config.tcl ...
+[INFO]: Preparation complete
+[INFO]: Merging /openLANE_flow/designs/picorv32a/src/sky130_vsdinv.lef
+[INFO]: Running Synthesis...
+[INFO]: current step index: 1
+[INFO]: Changing netlist from 0 to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/synthesis/picorv32a.synthesis.v
+[INFO]: Running Static Timing Analysis...
+[INFO]: current step index: 2
+[INFO]: Synthesis was successful
+[INFO]: Running Floorplanning...
+[INFO]: Running Initial Floorplanning...
+[INFO]: current step index: 3
+[INFO]: Core area width: 720.36
+[INFO]: Core area height: 718.08
+[INFO]: Changing layout from 0 to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/3-verilog2def_openroad.def
+[INFO]: Running IO Placement...
+[INFO]: current step index: 4
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/3-verilog2def_openroad.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/4-ioPlacer.def
+[INFO]: Running Global Placement...
+[INFO]: current step index: 5
+[INFO]: Global placement was successful
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/4-ioPlacer.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/5-replace.def
+[INFO]: Running Basic Macro Placement
+[INFO]: current step index: 6
+[ERROR]: during executing: "openroad -exit /openLANE_flow/scripts/openroad/or_basic_mp.tcl |& tee >&@stdout /openLANE_flow/designs/picorv32a/runs/28-10_03-59/logs/placement/6-basic_mp.log"
+[ERROR]: Exit code: 1
+[ERROR]: Last 10 lines:
+child process exited abnormally
+
+[ERROR]: Please check openroad  log file
+[ERROR]: Dumping to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/error.log
+[INFO]: Calculating Runtime From the Start...
+[INFO]: Flow failed for picorv32a/29-10_05-55 in 0h10m34s
+[INFO]: Generating Final Summary Report...
+[INFO]: Design Name: picorv32a
+Run Directory: /openLANE_flow/designs/picorv32a/runs/28-10_03-59
+Source not found.
+----------------------------------------
+
+LVS Summary:
+Source: /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/lvs/picorv32a.lvs_parsed.gds.log
+Source not found.
+----------------------------------------
+
+Antenna Summary:
+No antenna report found.
+[INFO]: check full report here: /openLANE_flow/designs/picorv32a/runs/28-10_03-59/reports/final_summary_report.csv
+[ERROR]: Flow Failed.
+[INFO]: Running Initial Floorplanning...
+[INFO]: current step index: 7
+[INFO]: Core area width: 720.36
+[INFO]: Core area height: 718.08
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/5-replace.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/7-verilog2def_openroad.def
+[INFO]: Running IO Placement...
+[INFO]: current step index: 8
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/7-verilog2def_openroad.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/8-ioPlacer.def
+[INFO]: Running Tap/Decap Insertion...
+[INFO]: current step index: 9
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/floorplan/8-ioPlacer.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/floorplan/picorv32a.floorplan.def
+[INFO]: Running Placement...
+[INFO]: Running Global Placement...
+[INFO]: current step index: 10
+[INFO]: Global placement was successful
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/floorplan/picorv32a.floorplan.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/10-replace.def
+[INFO]: Skipping OpenPhySyn Timing Optimizations.
+[INFO]: Running Resizer Design Optimizations...
+[INFO]: Generating Exclude List...
+[INFO]: Creating ::env(DONT_USE_CELLS)...
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/10-replace.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/10-resizer.def
+[INFO]: Writing Verilog...
+[INFO]: current step index: 11
+[INFO]: Changing netlist from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/synthesis/picorv32a.synthesis.v to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/synthesis/picorv32a.synthesis_optimized.v
+[INFO]: Running Static Timing Analysis...
+[INFO]: current step index: 12
+[INFO]: Running Detailed Placement...
+[INFO]: current step index: 13
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/tmp/placement/10-resizer.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/placement/picorv32a.placement.def
+[INFO]: Changing layout from /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/placement/picorv32a.placement.def to /openLANE_flow/designs/picorv32a/runs/28-10_03-59/results/placement/picorv32a.placement.def
+[INFO]: Taking a Screenshot of the Layout Using Klayout...
+[INFO]: current step index: 14
+[INFO]: Screenshot taken.

@@ -195,7 +195,7 @@ Inorder for these viloations to be fixed we add/update a few lines inside the sk
 - Line Updation 2
 ![Line Update 2](images/added%20command%202.png)
 
-Upon saving the `sky130A.tech` file, we can simply use the command given below so that it can be used in the existing magic session. 
+Upon saving the `sky130A.tech` file, we can simply use the command given below so that it can be used in the existing magic session in the `tkon` window. 
 
 ```bash
 tech load sky130A.tech
@@ -203,4 +203,33 @@ drc check
 drc why
 ```
 
-### Extended 
+### Additional Assignment
+![Additional Assignment fail](images/extended%20assignment.png)
+![Additional Assignment pass](images/extended%20poly9%20success.png)
+
+# Incorrectly Implemented nwell.4 rules
+- nwell rules
+![nwell](images/nwell%20rules.png)
+
+No DRC violation even though no tap present 
+![drc vio1](images/nwell%20assignment%202.png)
+
+We update the `sky130A.tech` file to fix the DRC violation
+
+- Updating sky130A.tech file
+![Update sky130A.tech file](images/updating%20skytech%20for%20assignment%202.png)
+![Update sky130A.tech file](images/updating%20skytech%20for%20assignment%202%202.png)
+![Update sky130A.tech file](images/updating%20skytech%20for%20assigment%202%203.png)
+
+To include updated .tech file use the commads given below in the tkon window
+
+```bash
+tech load sky130A.tech
+drc check
+drc why
+```
+- Output of DRC why
+![Nwell DRC](images/assignment%202%20fail.png)
+
+- Placing TAP and checking DRC
+![Nwell tap DRC](images/assignment%202%20pass.png)

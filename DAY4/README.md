@@ -123,8 +123,6 @@ run_floorplan
 ```bash
 run_placement
 ```
-- Running placement
-![Running placement](images/placment%20success.png)
 
 - Chip area after synthesis stratagies
 ![area](images/area%20after%20syn%20commands.png)
